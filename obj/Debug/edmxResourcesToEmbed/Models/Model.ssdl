@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BikeTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="10" />
+    <Property Name="lastUpdate" Type="datetime" />
+    <Property Name="latitude" Type="float" />
+    <Property Name="longitude" Type="float" />
+  </EntityType>
+  <EntityType Name="TripTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="startTime" Type="datetime" />
+    <Property Name="endTime" Type="datetime" />
+    <Property Name="cost" Type="int" />
+    <Property Name="startLatitude" Type="float" />
+    <Property Name="endLatitude" Type="float" />
+    <Property Name="startLongitude" Type="float" />
+    <Property Name="endLongitude" Type="float" />
+  </EntityType>
+  <EntityType Name="UserTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="latitude" Type="float" />
+  </EntityType>
+  <EntityContainer Name="RentABikeModel1StoreContainer">
+    <EntitySet Name="BikeTbl" EntityType="Self.BikeTbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TripTbl" EntityType="Self.TripTbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BikeTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="lastUpdate" Type="DateTime" Precision="3" />
+    <Property Name="latitude" Type="Double" />
+    <Property Name="longitude" Type="Double" />
+  </EntityType>
+  <EntityType Name="TripTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="endTime" Type="DateTime" Precision="3" />
+    <Property Name="cost" Type="Int32" />
+    <Property Name="startLatitude" Type="Double" />
+    <Property Name="endLatitude" Type="Double" />
+    <Property Name="startLongitude" Type="Double" />
+    <Property Name="endLongitude" Type="Double" />
+  </EntityType>
+  <EntityType Name="UserTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="Double" />
+    <Property Name="latitude" Type="Double" />
+  </EntityType>
+  <EntityContainer Name="RentABikeEnt" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BikeTbls" EntityType="Self.BikeTbl" />
+    <EntitySet Name="TripTbls" EntityType="Self.TripTbl" />
+    <EntitySet Name="UserTbls" EntityType="Self.UserTbl" />
+  </EntityContainer>
+</Schema>

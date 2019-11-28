@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RentABikeModel1StoreContainer" CdmEntityContainer="RentABikeEnt">
+    <EntitySetMapping Name="BikeTbls">
+      <EntityTypeMapping TypeName="RentABikeModel1.BikeTbl">
+        <MappingFragment StoreEntitySet="BikeTbl">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TripTbls">
+      <EntityTypeMapping TypeName="RentABikeModel1.TripTbl">
+        <MappingFragment StoreEntitySet="TripTbl">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="endTime" ColumnName="endTime" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="startLatitude" ColumnName="startLatitude" />
+          <ScalarProperty Name="endLatitude" ColumnName="endLatitude" />
+          <ScalarProperty Name="startLongitude" ColumnName="startLongitude" />
+          <ScalarProperty Name="endLongitude" ColumnName="endLongitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTbls">
+      <EntityTypeMapping TypeName="RentABikeModel1.UserTbl">
+        <MappingFragment StoreEntitySet="UserTbl">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

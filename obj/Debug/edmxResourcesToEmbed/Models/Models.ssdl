@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblBike">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="last_update" Type="datetime" />
+    <Property Name="fk_location" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblLocation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="latitude" Type="float" />
+  </EntityType>
+  <EntityType Name="tblTrip">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="start_time" Type="datetime" />
+    <Property Name="end_time" Type="datetime" />
+    <Property Name="fk_start_location" Type="int" />
+    <Property Name="fk_end_location" Type="int" />
+    <Property Name="cost" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="fk_location" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tblBike_tblLocation1">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblBike" Type="Self.tblBike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblBike">
+        <PropertyRef Name="fk_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTrip_tblLocation_End">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="0..1" />
+    <End Role="tblTrip" Type="Self.tblTrip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblTrip">
+        <PropertyRef Name="fk_end_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTrip_tblLocation_Start">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="0..1" />
+    <End Role="tblTrip" Type="Self.tblTrip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblTrip">
+        <PropertyRef Name="fk_start_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUser_tblLocation">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="fk_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentABikeModel1StoreContainer">
+    <EntitySet Name="tblBike" EntityType="Self.tblBike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLocation" EntityType="Self.tblLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTrip" EntityType="Self.tblTrip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblBike_tblLocation1" Association="Self.FK_tblBike_tblLocation1">
+      <End Role="tblLocation" EntitySet="tblLocation" />
+      <End Role="tblBike" EntitySet="tblBike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTrip_tblLocation_End" Association="Self.FK_tblTrip_tblLocation_End">
+      <End Role="tblLocation" EntitySet="tblLocation" />
+      <End Role="tblTrip" EntitySet="tblTrip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTrip_tblLocation_Start" Association="Self.FK_tblTrip_tblLocation_Start">
+      <End Role="tblLocation" EntitySet="tblLocation" />
+      <End Role="tblTrip" EntitySet="tblTrip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUser_tblLocation" Association="Self.FK_tblUser_tblLocation">
+      <End Role="tblLocation" EntitySet="tblLocation" />
+      <End Role="tblUser" EntitySet="tblUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

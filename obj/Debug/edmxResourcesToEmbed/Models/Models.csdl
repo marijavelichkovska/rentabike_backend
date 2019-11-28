@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblBike">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="last_update" Type="DateTime" Precision="3" />
+    <Property Name="fk_location" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblLocation" Relationship="Self.FK_tblBike_tblLocation1" FromRole="tblBike" ToRole="tblLocation" />
+  </EntityType>
+  <EntityType Name="tblLocation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="longitude" Type="Double" />
+    <Property Name="latitude" Type="Double" />
+    <NavigationProperty Name="tblBikes" Relationship="Self.FK_tblBike_tblLocation1" FromRole="tblLocation" ToRole="tblBike" />
+    <NavigationProperty Name="tblTrips" Relationship="Self.FK_tblTrip_tblLocation_End" FromRole="tblLocation" ToRole="tblTrip" />
+    <NavigationProperty Name="tblTrips1" Relationship="Self.FK_tblTrip_tblLocation_Start" FromRole="tblLocation" ToRole="tblTrip" />
+    <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblLocation" FromRole="tblLocation" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblTrip">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="start_time" Type="DateTime" Precision="3" />
+    <Property Name="end_time" Type="DateTime" Precision="3" />
+    <Property Name="fk_start_location" Type="Int32" />
+    <Property Name="fk_end_location" Type="Int32" />
+    <Property Name="cost" Type="Int32" />
+    <NavigationProperty Name="tblLocation" Relationship="Self.FK_tblTrip_tblLocation_End" FromRole="tblTrip" ToRole="tblLocation" />
+    <NavigationProperty Name="tblLocation1" Relationship="Self.FK_tblTrip_tblLocation_Start" FromRole="tblTrip" ToRole="tblLocation" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fk_location" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblLocation" Relationship="Self.FK_tblUser_tblLocation" FromRole="tblUser" ToRole="tblLocation" />
+  </EntityType>
+  <Association Name="FK_tblBike_tblLocation1">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblBike" Type="Self.tblBike" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblBike">
+        <PropertyRef Name="fk_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTrip_tblLocation_End">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblTrip" Type="Self.tblTrip" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblTrip">
+        <PropertyRef Name="fk_end_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTrip_tblLocation_Start">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblTrip" Type="Self.tblTrip" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblTrip">
+        <PropertyRef Name="fk_start_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUser_tblLocation">
+    <End Role="tblLocation" Type="Self.tblLocation" Multiplicity="1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="tblLocation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="fk_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentABikeEntities9" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblBikes" EntityType="Self.tblBike" />
+    <EntitySet Name="tblLocations" EntityType="Self.tblLocation" />
+    <EntitySet Name="tblTrips" EntityType="Self.tblTrip" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <AssociationSet Name="FK_tblBike_tblLocation1" Association="Self.FK_tblBike_tblLocation1">
+      <End Role="tblLocation" EntitySet="tblLocations" />
+      <End Role="tblBike" EntitySet="tblBikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTrip_tblLocation_End" Association="Self.FK_tblTrip_tblLocation_End">
+      <End Role="tblLocation" EntitySet="tblLocations" />
+      <End Role="tblTrip" EntitySet="tblTrips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTrip_tblLocation_Start" Association="Self.FK_tblTrip_tblLocation_Start">
+      <End Role="tblLocation" EntitySet="tblLocations" />
+      <End Role="tblTrip" EntitySet="tblTrips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUser_tblLocation" Association="Self.FK_tblUser_tblLocation">
+      <End Role="tblLocation" EntitySet="tblLocations" />
+      <End Role="tblUser" EntitySet="tblUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

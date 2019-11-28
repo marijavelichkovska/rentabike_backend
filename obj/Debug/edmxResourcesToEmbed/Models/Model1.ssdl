@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BikeTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="10" />
+    <Property Name="lastUpdate" Type="datetime" />
+    <Property Name="latitude" Type="float" />
+    <Property Name="longitude" Type="float" />
+  </EntityType>
+  <EntityType Name="TripTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="startTime" Type="datetime" />
+    <Property Name="endTime" Type="datetime" />
+    <Property Name="cost" Type="int" />
+    <Property Name="startLatitude" Type="float" />
+    <Property Name="endLatitude" Type="float" />
+    <Property Name="startLongitude" Type="float" />
+    <Property Name="endLongitude" Type="float" />
+    <Property Name="FKuser" Type="int" />
+    <Property Name="FKbike" Type="int" />
+  </EntityType>
+  <EntityType Name="UserTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="latitude" Type="float" />
+  </EntityType>
+  <Association Name="FK__TripTbl__FKbike__619B8048">
+    <End Role="BikeTbl" Type="Self.BikeTbl" Multiplicity="0..1" />
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BikeTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="FKbike" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TripTbl__FKuser__5FB337D6">
+    <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="FKuser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentABikeModelStoreContainer">
+    <EntitySet Name="BikeTbl" EntityType="Self.BikeTbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TripTbl" EntityType="Self.TripTbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TripTbl__FKbike__619B8048" Association="Self.FK__TripTbl__FKbike__619B8048">
+      <End Role="BikeTbl" EntitySet="BikeTbl" />
+      <End Role="TripTbl" EntitySet="TripTbl" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TripTbl__FKuser__5FB337D6" Association="Self.FK__TripTbl__FKuser__5FB337D6">
+      <End Role="UserTbl" EntitySet="UserTbl" />
+      <End Role="TripTbl" EntitySet="TripTbl" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
