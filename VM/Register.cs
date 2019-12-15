@@ -10,6 +10,7 @@ namespace WebApplication20.VM
     {
         public int id { get; set; }
         public string email { get; set; }
+        public string cardNumber { get; set; }
         public string password { get; set; }
         public float latitude { get; set; }
         public float longitude { get; set; }

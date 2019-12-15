@@ -13,7 +13,7 @@ namespace WebApplication20.Controllers
     public class BikeController : ApiController
     {
 
-        RentABikeEnt DB = new RentABikeEnt();
+        TripDatabase DB = new TripDatabase();
         [Route("FindNearsest")]
         [HttpPost]
         public object FindNearest(Coordinate coordinate)

@@ -14,6 +14,12 @@ namespace WebApplication20.Models
     
     public partial class TripTbl
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TripTbl()
+        {
+            this.PaymentsTbls = new HashSet<PaymentsTbl>();
+        }
+    
         public int id { get; set; }
         public string status { get; set; }
         public Nullable<System.DateTime> startTime { get; set; }
@@ -23,5 +29,12 @@ namespace WebApplication20.Models
         public Nullable<double> endLatitude { get; set; }
         public Nullable<double> startLongitude { get; set; }
         public Nullable<double> endLongitude { get; set; }
+        public Nullable<int> Bike { get; set; }
+        public Nullable<int> UserID { get; set; }
+    
+        public virtual BikeTbl BikeTbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PaymentsTbl> PaymentsTbls { get; set; }
+        public virtual UserTbl UserTbl { get; set; }
     }
 }

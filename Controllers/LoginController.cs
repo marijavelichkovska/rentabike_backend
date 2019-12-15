@@ -15,17 +15,14 @@ namespace WebApplication20.Controllers
     [RoutePrefix("Api/login")]
     public class LoginController : ApiController
     {
-        RentABikeEnt DB = new RentABikeEnt ();
+        TripDatabase DB = new TripDatabase();
         [Route("InsertUser")]
         [HttpPost]
         public object InsertUser(Register Reg)
         {
-            try
-            {
+            
                 UserTbl user = new Models.UserTbl();
-                if (user.id == 0)
-                {
-                   
+                     user.cardNum = Reg.cardNumber;
                     user.email = Reg.email;
                     user.password = Reg.password;
                     user.latitude = Reg.latitude;
@@ -35,14 +32,9 @@ namespace WebApplication20.Controllers
                     DB.SaveChanges();
                     return new Response
                     { Status = "Success", Message = "Record SuccessFully Saved." };
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return new Response
-            { Status = "Error", Message = "Invalid Data." };
+                
+            
+        
         }
         [Route("Login")]
         [HttpPost]

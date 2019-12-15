@@ -14,10 +14,20 @@ namespace WebApplication20.Models
     
     public partial class UserTbl
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserTbl()
+        {
+            this.TripTbls = new HashSet<TripTbl>();
+        }
+    
         public int id { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<double> longitude { get; set; }
         public Nullable<double> latitude { get; set; }
+        public string cardNum { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TripTbl> TripTbls { get; set; }
     }
 }
