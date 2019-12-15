@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BikeTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="lastUpdate" Type="DateTime" Precision="3" />
+    <Property Name="latitude" Type="Double" />
+    <Property Name="longitude" Type="Double" />
+    <NavigationProperty Name="TripTbls" Relationship="Self.FK__TripTbl__Bike__6E01572D" FromRole="BikeTbl" ToRole="TripTbl" />
+  </EntityType>
+  <EntityType Name="TripTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="endTime" Type="DateTime" Precision="3" />
+    <Property Name="cost" Type="Int32" />
+    <Property Name="startLatitude" Type="Double" />
+    <Property Name="endLatitude" Type="Double" />
+    <Property Name="startLongitude" Type="Double" />
+    <Property Name="endLongitude" Type="Double" />
+    <Property Name="Bike" Type="Int32" />
+    <NavigationProperty Name="BikeTbl" Relationship="Self.FK__TripTbl__Bike__6E01572D" FromRole="TripTbl" ToRole="BikeTbl" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="UserTbl" Relationship="RentABikeModel.FK__TripTbl__UserID__6EF57B66" FromRole="TripTbl" ToRole="UserTbl" />
+  </EntityType>
+  <EntityType Name="UserTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="Double" />
+    <Property Name="latitude" Type="Double" />
+    <NavigationProperty Name="TripTbls" Relationship="RentABikeModel.FK__TripTbl__UserID__6EF57B66" FromRole="UserTbl" ToRole="TripTbl" />
+    <Property Name="cardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__TripTbl__Bike__6E01572D">
+    <End Role="BikeTbl" Type="Self.BikeTbl" Multiplicity="0..1" />
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BikeTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="Bike" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentABikeEntities18" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BikeTbls" EntityType="Self.BikeTbl" />
+    <EntitySet Name="TripTbls" EntityType="Self.TripTbl" />
+    <EntitySet Name="UserTbls" EntityType="Self.UserTbl" />
+    <AssociationSet Name="FK__TripTbl__Bike__6E01572D" Association="Self.FK__TripTbl__Bike__6E01572D">
+      <End Role="BikeTbl" EntitySet="BikeTbls" />
+      <End Role="TripTbl" EntitySet="TripTbls" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TripTbl__UserID__6EF57B66" Association="RentABikeModel.FK__TripTbl__UserID__6EF57B66">
+      <End Role="UserTbl" EntitySet="UserTbls" />
+      <End Role="TripTbl" EntitySet="TripTbls" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK__TripTbl__UserID__6EF57B66">
+    <End Type="RentABikeModel.UserTbl" Role="UserTbl" Multiplicity="0..1" />
+    <End Type="RentABikeModel.TripTbl" Role="TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RentABikeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BikeTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+          <Property Name="lastUpdate" Type="datetime" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+        </EntityType>
+        <EntityType Name="PaymentsTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tripID" Type="int" />
+          <Property Name="cardNum" Type="varchar" MaxLength="20" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <EntityType Name="TripTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="startTime" Type="datetime" />
+          <Property Name="endTime" Type="datetime" />
+          <Property Name="cost" Type="int" />
+          <Property Name="startLatitude" Type="float" />
+          <Property Name="endLatitude" Type="float" />
+          <Property Name="startLongitude" Type="float" />
+          <Property Name="endLongitude" Type="float" />
+          <Property Name="Bike" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="cardNum" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__PaymentsT__tripI__7C4F7684">
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="0..1" />
+          <End Role="PaymentsTbl" Type="Self.PaymentsTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TripTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaymentsTbl">
+              <PropertyRef Name="tripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TripTbl__Bike__787EE5A0">
+          <End Role="BikeTbl" Type="Self.BikeTbl" Multiplicity="0..1" />
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TripTbl">
+              <PropertyRef Name="Bike" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TripTbl__UserID__797309D9">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TripTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentABikeModelStoreContainer">
+          <EntitySet Name="BikeTbl" EntityType="Self.BikeTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentsTbl" EntityType="Self.PaymentsTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TripTbl" EntityType="Self.TripTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PaymentsT__tripI__7C4F7684" Association="Self.FK__PaymentsT__tripI__7C4F7684">
+            <End Role="TripTbl" EntitySet="TripTbl" />
+            <End Role="PaymentsTbl" EntitySet="PaymentsTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TripTbl__Bike__787EE5A0" Association="Self.FK__TripTbl__Bike__787EE5A0">
+            <End Role="BikeTbl" EntitySet="BikeTbl" />
+            <End Role="TripTbl" EntitySet="TripTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TripTbl__UserID__797309D9" Association="Self.FK__TripTbl__UserID__797309D9">
+            <End Role="UserTbl" EntitySet="UserTbl" />
+            <End Role="TripTbl" EntitySet="TripTbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentABikeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BikeTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <NavigationProperty Name="TripTbls" Relationship="Self.FK__TripTbl__Bike__787EE5A0" FromRole="BikeTbl" ToRole="TripTbl" />
+        </EntityType>
+        <EntityType Name="PaymentsTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tripID" Type="Int32" />
+          <Property Name="cardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="TripTbl" Relationship="Self.FK__PaymentsT__tripI__7C4F7684" FromRole="PaymentsTbl" ToRole="TripTbl" />
+        </EntityType>
+        <EntityType Name="TripTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startTime" Type="DateTime" Precision="3" />
+          <Property Name="endTime" Type="DateTime" Precision="3" />
+          <Property Name="cost" Type="Int32" />
+          <Property Name="startLatitude" Type="Double" />
+          <Property Name="endLatitude" Type="Double" />
+          <Property Name="startLongitude" Type="Double" />
+          <Property Name="endLongitude" Type="Double" />
+          <Property Name="Bike" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="BikeTbl" Relationship="Self.FK__TripTbl__Bike__787EE5A0" FromRole="TripTbl" ToRole="BikeTbl" />
+          <NavigationProperty Name="PaymentsTbls" Relationship="Self.FK__PaymentsT__tripI__7C4F7684" FromRole="TripTbl" ToRole="PaymentsTbl" />
+          <NavigationProperty Name="UserTbl" Relationship="Self.FK__TripTbl__UserID__797309D9" FromRole="TripTbl" ToRole="UserTbl" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="cardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TripTbls" Relationship="Self.FK__TripTbl__UserID__797309D9" FromRole="UserTbl" ToRole="TripTbl" />
+        </EntityType>
+        <Association Name="FK__TripTbl__Bike__787EE5A0">
+          <End Role="BikeTbl" Type="Self.BikeTbl" Multiplicity="0..1" />
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TripTbl">
+              <PropertyRef Name="Bike" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentsT__tripI__7C4F7684">
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="0..1" />
+          <End Role="PaymentsTbl" Type="Self.PaymentsTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TripTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaymentsTbl">
+              <PropertyRef Name="tripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TripTbl__UserID__797309D9">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+          <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TripTbl">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TripDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BikeTbls" EntityType="Self.BikeTbl" />
+          <EntitySet Name="PaymentsTbls" EntityType="Self.PaymentsTbl" />
+          <EntitySet Name="TripTbls" EntityType="Self.TripTbl" />
+          <EntitySet Name="UserTbls" EntityType="Self.UserTbl" />
+          <AssociationSet Name="FK__TripTbl__Bike__787EE5A0" Association="Self.FK__TripTbl__Bike__787EE5A0">
+            <End Role="BikeTbl" EntitySet="BikeTbls" />
+            <End Role="TripTbl" EntitySet="TripTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentsT__tripI__7C4F7684" Association="Self.FK__PaymentsT__tripI__7C4F7684">
+            <End Role="TripTbl" EntitySet="TripTbls" />
+            <End Role="PaymentsTbl" EntitySet="PaymentsTbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TripTbl__UserID__797309D9" Association="Self.FK__TripTbl__UserID__797309D9">
+            <End Role="UserTbl" EntitySet="UserTbls" />
+            <End Role="TripTbl" EntitySet="TripTbls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentABikeModelStoreContainer" CdmEntityContainer="TripDatabase">
+          <EntitySetMapping Name="BikeTbls">
+            <EntityTypeMapping TypeName="RentABikeModel.BikeTbl">
+              <MappingFragment StoreEntitySet="BikeTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentsTbls">
+            <EntityTypeMapping TypeName="RentABikeModel.PaymentsTbl">
+              <MappingFragment StoreEntitySet="PaymentsTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tripID" ColumnName="tripID" />
+                <ScalarProperty Name="cardNum" ColumnName="cardNum" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripTbls">
+            <EntityTypeMapping TypeName="RentABikeModel.TripTbl">
+              <MappingFragment StoreEntitySet="TripTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="startLatitude" ColumnName="startLatitude" />
+                <ScalarProperty Name="endLatitude" ColumnName="endLatitude" />
+                <ScalarProperty Name="startLongitude" ColumnName="startLongitude" />
+                <ScalarProperty Name="endLongitude" ColumnName="endLongitude" />
+                <ScalarProperty Name="Bike" ColumnName="Bike" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTbls">
+            <EntityTypeMapping TypeName="RentABikeModel.UserTbl">
+              <MappingFragment StoreEntitySet="UserTbl">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="cardNum" ColumnName="cardNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

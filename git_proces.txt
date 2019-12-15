@@ -1,0 +1,42 @@
+    1  pwd
+    2  cd C:\Users\User\source\repos\WebApplication20\WebApplication20
+    3  cd "C:\Users\User\source\repos\WebApplication20\WebApplication20"
+    4  pwd
+    5  ls
+    6  git init
+    7  git status
+    8  git add .
+    9  git status
+   10  git commit -m "RentABike backend solution with mssql server"
+   11  git config --global user.email "marija.velickovska.55@gmail.com"
+   12  git config --global user.name "marijavelichkovska"
+   13  git commit -m "RentABike backend solution with mssql server"
+   14  git remote add origin https://github.com/marijavelichkovska/rentabike.git
+   15  git push -u origin master
+   16  ssh-keygen
+   17  pwd
+   18  cd ~/
+   19  cd .ssh/
+   20  ls
+   21  ssh-keygen -t rsa -b 4096 -C "marija.velickovska.55@gmail.com"
+   22  ls
+   23  nano id_rsa
+   24  clip < ~/.ssh/id_rsa.pub
+   25  cd /c/Users/User/source/repos/WebApplication20/WebApplication20
+   26  git status
+   27  git remote add origin git@github.com:marijavelichkovska/rentabike.git
+   28  git push -u origin master
+   29  pwd
+   30  git status
+   31  git add *.sql 
+   32  git status
+   33  git commit -m "SQLDump for creation DB and tables"
+   34  git push origin master
+   35  git fetch
+   36  git status
+   37  git push origin master
+   38  history
+   39  git push -u origin master
+   40  git pull
+   41  git push -u origin master
+   42  history >> git_proces.txt
