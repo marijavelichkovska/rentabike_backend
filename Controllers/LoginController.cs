@@ -15,7 +15,7 @@ namespace WebApplication20.Controllers
     [RoutePrefix("Api/login")]
     public class LoginController : ApiController
     {
-        TripDatabase DB = new TripDatabase();
+        rentbikeEntities DB = new rentbikeEntities();
         [Route("InsertUser")]
         [HttpPost]
         public object InsertUser(Register Reg)

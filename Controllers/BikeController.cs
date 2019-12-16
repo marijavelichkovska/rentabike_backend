@@ -13,7 +13,7 @@ namespace WebApplication20.Controllers
     public class BikeController : ApiController
     {
 
-        TripDatabase DB = new TripDatabase();
+        rentbikeEntities DB = new rentbikeEntities();
         [Route("FindNearsest")]
         [HttpPost]
         public object FindNearest(Coordinate coordinate)
@@ -40,6 +40,13 @@ namespace WebApplication20.Controllers
 
    
                
+
+        }
+        [HttpGet]
+        [Route("all")]
+        public List<BikeTbl> allBikes ()
+        {
+            return DB.BikeTbls.ToList();
 
         }
         private static double GetDistance(BikeTbl point1, Coordinate point2)

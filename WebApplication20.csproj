@@ -229,10 +229,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BikeTbl.cs">
-      <DependentUpon>TripModel.tt</DependentUpon>
+      <DependentUpon>RentBike.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentsTbl.cs">
-      <DependentUpon>TripModel.tt</DependentUpon>
+      <DependentUpon>RentBike.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentBike.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentBike.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentBike.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentBike.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentBike.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentBike.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TripModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -250,10 +265,10 @@
       <DependentUpon>TripModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TripTbl.cs">
-      <DependentUpon>TripModel.tt</DependentUpon>
+      <DependentUpon>RentBike.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserTbl.cs">
-      <DependentUpon>TripModel.tt</DependentUpon>
+      <DependentUpon>RentBike.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VM\Coordinate.cs" />
@@ -272,6 +287,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\Database1.mdf" />
+    <Content Include="Models\RentBike.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RentBike.edmx</DependentUpon>
+      <LastGenOutput>RentBike.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RentBike.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RentBike.edmx</DependentUpon>
+      <LastGenOutput>RentBike.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\TripModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TripModel.edmx</DependentUpon>
@@ -309,6 +334,13 @@
     </EntityDeploy>
     <Content Include="Models\TripModel.edmx.diagram">
       <DependentUpon>TripModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\RentBike.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RentBike.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RentBike.edmx.diagram">
+      <DependentUpon>RentBike.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

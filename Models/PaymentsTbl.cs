@@ -18,7 +18,5 @@ namespace WebApplication20.Models
         public Nullable<int> tripID { get; set; }
         public string cardNum { get; set; }
         public Nullable<int> cost { get; set; }
-    
-        public virtual TripTbl TripTbl { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace WebApplication20.Controllers
 {
     public class TripController : ApiController
     {
-        TripDatabase DB = new TripDatabase();
+        rentbikeEntities DB = new rentbikeEntities();
         [HttpPost]
         [Route("api/trip/start")]
         public void startTrip (int userId,int bikeID)
