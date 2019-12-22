@@ -14,7 +14,7 @@ namespace WebApplication20.Controllers
         rentbikeEntities DB = new rentbikeEntities();
         [HttpPost]
         [Route("api/trip/start")]
-        public void startTrip (int userId,int bikeID)
+        public TripTbl startTrip (int userId,int bikeID)
         {
             TripTbl newTrip = new TripTbl();
             UserTbl user = DB.UserTbls.Find(userId);
@@ -34,7 +34,7 @@ namespace WebApplication20.Controllers
                 DB.SaveChanges();
             }
 
-
+            return newTrip;
 
         }
         [HttpPost]
@@ -59,6 +59,17 @@ namespace WebApplication20.Controllers
            
 
         }
+
+
+        [HttpPost]
+        [Route("api/trip/get")]
+        public TripTbl getTrip(int TripID)
+        {
+            TripTbl trip = DB.TripTbls.Find(TripID);
+          
+            return trip;
+        }
+
         [HttpPost]
         [Route("api/trip/makePayment")]
         public void makePayment (int tripId, int cost,int userId)
