@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentABikeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BikeTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="lastUpdate" Type="DateTime" Precision="3" />
+    <Property Name="latitude" Type="Double" />
+    <Property Name="longitude" Type="Double" />
+    <NavigationProperty Name="TripTbls" Relationship="Self.FK__TripTbl__Bike__787EE5A0" FromRole="BikeTbl" ToRole="TripTbl" />
+  </EntityType>
+  <EntityType Name="PaymentsTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tripID" Type="Int32" />
+    <Property Name="cardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cost" Type="Int32" />
+    <NavigationProperty Name="TripTbl" Relationship="Self.FK__PaymentsT__tripI__7C4F7684" FromRole="PaymentsTbl" ToRole="TripTbl" />
+  </EntityType>
+  <EntityType Name="TripTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="endTime" Type="DateTime" Precision="3" />
+    <Property Name="cost" Type="Int32" />
+    <Property Name="startLatitude" Type="Double" />
+    <Property Name="endLatitude" Type="Double" />
+    <Property Name="startLongitude" Type="Double" />
+    <Property Name="endLongitude" Type="Double" />
+    <Property Name="Bike" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="BikeTbl" Relationship="Self.FK__TripTbl__Bike__787EE5A0" FromRole="TripTbl" ToRole="BikeTbl" />
+    <NavigationProperty Name="PaymentsTbls" Relationship="Self.FK__PaymentsT__tripI__7C4F7684" FromRole="TripTbl" ToRole="PaymentsTbl" />
+    <NavigationProperty Name="UserTbl" Relationship="Self.FK__TripTbl__UserID__797309D9" FromRole="TripTbl" ToRole="UserTbl" />
+  </EntityType>
+  <EntityType Name="UserTbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="Double" />
+    <Property Name="latitude" Type="Double" />
+    <Property Name="cardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TripTbls" Relationship="Self.FK__TripTbl__UserID__797309D9" FromRole="UserTbl" ToRole="TripTbl" />
+  </EntityType>
+  <Association Name="FK__TripTbl__Bike__787EE5A0">
+    <End Role="BikeTbl" Type="Self.BikeTbl" Multiplicity="0..1" />
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BikeTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="Bike" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PaymentsT__tripI__7C4F7684">
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="0..1" />
+    <End Role="PaymentsTbl" Type="Self.PaymentsTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TripTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PaymentsTbl">
+        <PropertyRef Name="tripID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TripTbl__UserID__797309D9">
+    <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="0..1" />
+    <End Role="TripTbl" Type="Self.TripTbl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TripTbl">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TripDatabase" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BikeTbls" EntityType="Self.BikeTbl" />
+    <EntitySet Name="PaymentsTbls" EntityType="Self.PaymentsTbl" />
+    <EntitySet Name="TripTbls" EntityType="Self.TripTbl" />
+    <EntitySet Name="UserTbls" EntityType="Self.UserTbl" />
+    <AssociationSet Name="FK__TripTbl__Bike__787EE5A0" Association="Self.FK__TripTbl__Bike__787EE5A0">
+      <End Role="BikeTbl" EntitySet="BikeTbls" />
+      <End Role="TripTbl" EntitySet="TripTbls" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PaymentsT__tripI__7C4F7684" Association="Self.FK__PaymentsT__tripI__7C4F7684">
+      <End Role="TripTbl" EntitySet="TripTbls" />
+      <End Role="PaymentsTbl" EntitySet="PaymentsTbls" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TripTbl__UserID__797309D9" Association="Self.FK__TripTbl__UserID__797309D9">
+      <End Role="UserTbl" EntitySet="UserTbls" />
+      <End Role="TripTbl" EntitySet="TripTbls" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

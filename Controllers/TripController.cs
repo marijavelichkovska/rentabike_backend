@@ -19,7 +19,7 @@ namespace WebApplication20.Controllers
 
         //  The trip is started with unique userId and bikeId as parameters 
 
-        public void startTrip (int userId,int bikeID)
+        public TripTbl startTrip(int userId, int bikeID)
         {
             TripTbl newTrip = new TripTbl();
             //Retrieve from database user and bike with unique values of ids
@@ -31,8 +31,8 @@ namespace WebApplication20.Controllers
             newTrip.startLatitude = user.latitude;
             newTrip.startTime = DateTime.Now;
             // Change the status of the trip 
-            newTrip.status ="in-progress";
-           
+            newTrip.status = "in-progress";
+
             // Only unlocked bikes are available for a trip
             if (bike.status.Equals("unlocked"))
             {
@@ -47,7 +47,7 @@ namespace WebApplication20.Controllers
             }
 
 
-
+            return newTrip;
         }
         [HttpPost]
         [Route("api/trip/end")]
@@ -90,12 +90,24 @@ namespace WebApplication20.Controllers
             DB.SaveChanges();
             // Returns an object of a pair of tripId and cost of trip
             return tripcost;
-           
+
 
         }
+
+
+        [HttpPost]
+        [Route("api/trip/get")]
+        // Return the trip from DB 
+        public TripTbl getTrip(int TripID)
+        {
+            TripTbl trip = DB.TripTbls.Find(TripID);
+
+            return trip;
+        }
+
         [HttpPost]
         [Route("api/trip/makePayment")]
-        public void makePayment (int tripId, int cost,int userId)
+        public void makePayment(int tripId, int cost, int userId)
         {
             UserTbl user = DB.UserTbls.Find(userId);
             string card = user.cardNum;
