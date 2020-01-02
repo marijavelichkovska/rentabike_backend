@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication20.Controllers.Payment;
 using WebApplication20.Models;
 using WebApplication20.VM;
 
@@ -53,6 +54,7 @@ namespace WebApplication20.Controllers
         public TripCost endTrip(int TripID)
         {
             TripTbl trip = DB.TripTbls.Find(TripID);
+            UserTbl user = DB.UserTbls.Find(trip.UserID); // Retrieve the user associated with the trip
             // Change the status of the trip to be in a mid-state before the payment
             trip.status = "finished_not_paid";
             trip.endTime = DateTime.Now;
@@ -65,9 +67,22 @@ namespace WebApplication20.Controllers
             // Calculates the time of the trip in minutes
             TimeSpan span = (TimeSpan)(trip.endTime - trip.startTime);
             double minutes = span.TotalMinutes;
+            PriceCalculation priceCalculation;
+            if (user.TripTbls.Count > 10)
+            {
+                // If the user has already more than 10 trips it will have discounts 
+                // price = minutes * 0.35 
+                priceCalculation = new DiscountMemberPricing();
 
+            }
+            else
+            {
+                // price = minutes * 0.50
+                // The user will be charged regularly if opposite
+                priceCalculation = new RegularMemberPricing();
+            }
 
-            int finalCost = (int)(minutes * 0.5);
+            int finalCost = priceCalculation.calculatePrice(minutes);
             trip.cost = finalCost;
             TripCost tripcost = new TripCost();
             tripcost.cost = finalCost;

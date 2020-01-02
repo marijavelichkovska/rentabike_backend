@@ -223,8 +223,10 @@
     <Compile Include="Controllers\BikeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Payment\DiscountMemberPricing.cs" />
+    <Compile Include="Controllers\Payment\PriceCalculation.cs" />
+    <Compile Include="Controllers\Payment\RegularMemberPricing.cs" />
     <Compile Include="Controllers\TripController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

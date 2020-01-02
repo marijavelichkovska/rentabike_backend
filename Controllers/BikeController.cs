@@ -16,7 +16,8 @@ namespace WebApplication20.Controllers
         rentbikeEntities DB = new rentbikeEntities();
         [Route("FindNearsest")]
         [HttpPost]
-        public object FindNearest(Coordinate coordinate)
+        // Based on a longitude,latidude values the nearest bike to the user is returned  
+        public object FindNearestBike(Coordinate coordinate)
         {
             List<BikeTbl> bikes = DB.BikeTbls.ToList();
 
@@ -37,11 +38,8 @@ namespace WebApplication20.Controllers
 
             return result;
 
-
-   
-               
-
         }
+        // Retrieve a list of all bikes from DB
         [HttpGet]
         [Route("all")]
         public List<BikeTbl> allBikes ()
@@ -49,22 +47,16 @@ namespace WebApplication20.Controllers
             return DB.BikeTbls.ToList();
 
         }
-        private static double GetDistance(BikeTbl point1, Coordinate point2)
+        private static double GetDistance(BikeTbl bike, Coordinate coordinate)
         {
             //pythagorean theorem c^2 = a^2 + b^2
             //thus c = square root(a^2 + b^2)
-            double a = (double)(point2.latitude - point1.latitude);
-            double b = (double)(point2.longitude - point1.longitude);
-
+            double a = (double)(coordinate.latitude - bike.latitude);
+            double b = (double)(coordinate.longitude - bike.longitude);
             return Math.Sqrt(a * a + b * b);
         }
 
-        double distance(double x1, double y1, double x2, double y2)
-        {
-
-            return Math.Sqrt(Math.Pow(((double)x1 - (double)x2), 2) - Math.Pow(((double)y1 - (double)y2), 2));
-
-        }
+      
 
 
     }

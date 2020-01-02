@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication20.Controllers.Payment
 {
-    interface PaymentMethod
+    interface PriceCalculation
     {
+        int calculatePrice(double minutes);
     }
 }
